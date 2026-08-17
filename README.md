@@ -1,29 +1,70 @@
-# hello_world
+# Excelerate Flutter App
 
-A new Flutter project.
+A functional Week 2 mobile UI prototype built with Flutter and Dart for the Excelerate internship program.
 
-## Getting Started
+## Week 2 Deliverables
 
-This project is a starting point for a Flutter application.
-# EXCELERATE Flutter App
-
-## Project Description
-
-The Excelerate Flutter App is a mobile application prototype developed using Flutter and Dart. The Week 2 implementation focused on creating the main user interface and navigation for the application.
-
-The completed prototype includes a Login Screen, Home Dashboard, Program Listing Screen, and Program Details Screen. Navigation between screens and a shared navigation drawer with logout functionality have also been implemented.
-
-The app uses consistent Excelerate-inspired orange and pink branding, responsive layouts, and reusable UI components to provide a clean and user-friendly experience.
-
-### Week 2 Features
-- Login interface
+- Login screen
 - Home dashboard
-- Program listing
-- Program details
-- Screen navigation
+- Program listing screen
+- Program details screen
+- Navigation between all four core screens
+- Shared navigation drawer with logout confirmation
+- Excelerate-inspired orange and pink branding
+- Responsive layouts and reusable UI components
+
+## App Flow
+
+1. Enter through the Login screen.
+2. Continue to the Home dashboard.
+3. Open the Program Listing from the dashboard or navigation drawer.
+4. Select a program to view its details.
+5. Use the navigation drawer to return home or log out.
+
+## Run the App
+
+### Requirements
+
+- Flutter SDK
+- Dart SDK (included with Flutter)
+- Android Studio, VS Code, or another Flutter-compatible editor
+- An emulator, browser, or connected device
+
+### Setup
+
+```bash
+flutter pub get
+flutter run
+```
+
+To run the automated UI test:
+
+```bash
+flutter test
+```
+
 ## App Screenshots
 
-<img width="1065" height="886" alt="login" src="https://github.com/user-attachments/assets/d93f4945-dccf-43be-b6b4-99dac14c734c" />
-<img width="1062" height="968" alt="home_screen" src="https://github.com/user-attachments/assets/dc1168f9-7b1b-44c2-baf2-8ef496d977b7" />
-<img width="1067" height="990" alt="program_listing" src="https://github.com/user-attachments/assets/25dbd9a3-d6fd-48c5-9db8-ec000b67a473" />
-<img width="1067" height="972" alt="program_details" src="https://github.com/user-attachments/assets/44456f90-aa5d-434c-9056-70ea36e3b493" />
+### Login
+
+<img width="420" alt="Excelerate login screen" src="https://github.com/user-attachments/assets/d93f4945-dccf-43be-b6b4-99dac14c734c" />
+
+### Home Dashboard
+
+<img width="420" alt="Excelerate home dashboard" src="https://github.com/user-attachments/assets/dc1168f9-7b1b-44c2-baf2-8ef496d977b7" />
+
+### Program Listing
+
+<img width="420" alt="Excelerate program listing screen" src="https://github.com/user-attachments/assets/25dbd9a3-d6fd-48c5-9db8-ec000b67a473" />
+
+### Program Details
+
+<img width="420" alt="Excelerate program details screen" src="https://github.com/user-attachments/assets/44456f90-aa5d-434c-9056-70ea36e3b493" />
+
+## Demo Walkthrough
+
+The optional walkthrough should show the complete flow from Login to Home, Program Listing, Program Details, and Logout. Add the video link here after recording.
+
+## Project Status
+
+Week 2 UI prototype complete. The project is ready for data and functionality integration in Week 3.
