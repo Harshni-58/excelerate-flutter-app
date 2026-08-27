@@ -1,0 +1,44 @@
+[
+  {
+    "id": 1,
+    "title": "Digital Marketing Bootcamp",
+    "startDate": "20 August 2026",
+    "description": "Learn the fundamentals of digital marketing, social media strategy, content creation, and online campaign management.",
+    "schedule": "Monday - Friday, 9:00 AM - 12:00 PM",
+    "eligibility": "University students and recent graduates interested in digital marketing.",
+    "trainers": "Digital Marketing Professionals",
+    "outcomes": [
+      "Understand digital marketing fundamentals",
+      "Create effective social media strategies",
+      "Develop digital marketing campaigns"
+    ]
+  },
+  {
+    "id": 2,
+    "title": "Software Development Program",
+    "startDate": "1 September 2026",
+    "description": "Build practical software development skills using modern programming concepts, application development, and software engineering practices.",
+    "schedule": "Monday - Friday, 10:00 AM - 1:00 PM",
+    "eligibility": "Students and aspiring software developers with basic computer skills.",
+    "trainers": "Software Development Professionals",
+    "outcomes": [
+      "Understand software development principles",
+      "Build basic applications",
+      "Apply software engineering practices"
+    ]
+  },
+  {
+    "id": 3,
+    "title": "Data Analytics Program",
+    "startDate": "15 September 2026",
+    "description": "Develop practical data analytics skills including data preparation, analysis, visualisation, and interpretation.",
+    "schedule": "Tuesday - Friday, 9:00 AM - 12:00 PM",
+    "eligibility": "Students interested in data analysis and data-driven decision making.",
+    "trainers": "Data Analytics Professionals",
+    "outcomes": [
+      "Understand data analytics concepts",
+      "Analyse datasets",
+      "Create meaningful data visualisations"
+    ]
+  }
+]

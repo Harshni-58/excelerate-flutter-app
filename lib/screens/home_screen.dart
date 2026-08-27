@@ -1,14 +1,22 @@
 import 'package:flutter/material.dart';
+
 import 'program_listing_screen.dart';
 import '../widgets/app_drawer.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+  const HomeScreen({
+    super.key,
+    required this.userEmail,
+  });
+
+  final String userEmail;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: const AppDrawer(),
+      drawer: AppDrawer(
+        userEmail: userEmail,
+      ),
 
       appBar: AppBar(
         title: const Text(
@@ -18,6 +26,7 @@ class HomeScreen extends StatelessWidget {
             letterSpacing: 1.5,
           ),
         ),
+
         centerTitle: true,
 
         flexibleSpace: Container(
@@ -42,10 +51,15 @@ class HomeScreen extends StatelessWidget {
             ),
 
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
+              crossAxisAlignment:
+              CrossAxisAlignment.center,
+
               children: [
 
+                // ==========================================
                 // WELCOME CARD
+                // ==========================================
+
                 SizedBox(
                   width: double.infinity,
 
@@ -54,26 +68,48 @@ class HomeScreen extends StatelessWidget {
                       gradient: const LinearGradient(
                         begin: Alignment.topLeft,
                         end: Alignment.bottomRight,
+
                         colors: [
                           Color(0xFFFF7A00),
                           Color(0xFFFF1493),
                         ],
                       ),
-                      borderRadius: BorderRadius.circular(18),
+
+                      borderRadius:
+                      BorderRadius.circular(18),
+
+                      boxShadow: [
+                        BoxShadow(
+                          color:
+                          Colors.black.withOpacity(0.12),
+
+                          blurRadius: 10,
+
+                          offset:
+                          const Offset(0, 5),
+                        ),
+                      ],
                     ),
 
                     child: Padding(
-                      padding: const EdgeInsets.all(25),
+                      padding:
+                      const EdgeInsets.all(25),
 
                       child: Column(
                         children: [
+
                           Container(
-                            padding: const EdgeInsets.all(12),
+                            padding:
+                            const EdgeInsets.all(12),
 
                             decoration: BoxDecoration(
                               color:
-                              Colors.white.withOpacity(0.2),
-                              shape: BoxShape.circle,
+                              Colors.white.withOpacity(
+                                0.2,
+                              ),
+
+                              shape:
+                              BoxShape.circle,
                             ),
 
                             child: const Icon(
@@ -87,12 +123,15 @@ class HomeScreen extends StatelessWidget {
 
                           const Text(
                             'Welcome to Excelerate!',
-                            textAlign: TextAlign.center,
+
+                            textAlign:
+                            TextAlign.center,
 
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 27,
-                              fontWeight: FontWeight.bold,
+                              fontWeight:
+                              FontWeight.bold,
                             ),
                           ),
 
@@ -101,7 +140,9 @@ class HomeScreen extends StatelessWidget {
                           const Text(
                             'Discover programs, develop your skills '
                                 'and find new opportunities.',
-                            textAlign: TextAlign.center,
+
+                            textAlign:
+                            TextAlign.center,
 
                             style: TextStyle(
                               color: Colors.white,
@@ -117,49 +158,88 @@ class HomeScreen extends StatelessWidget {
 
                 const SizedBox(height: 20),
 
+                // ==========================================
                 // UPCOMING PROGRAMS
+                // ==========================================
+
                 SizedBox(
                   width: double.infinity,
 
                   child: Card(
+                    elevation: 3,
+
+                    shape:
+                    RoundedRectangleBorder(
+                      borderRadius:
+                      BorderRadius.circular(16),
+                    ),
+
                     child: Padding(
-                      padding: const EdgeInsets.all(20),
+                      padding:
+                      const EdgeInsets.all(20),
 
                       child: Column(
                         children: [
+
                           const Icon(
                             Icons.event_available,
                             size: 35,
-                            color: Color(0xFFFF7A00),
+                            color:
+                            Color(0xFFFF7A00),
                           ),
 
                           const SizedBox(height: 8),
 
                           const Text(
                             'Upcoming Programs',
-                            textAlign: TextAlign.center,
+
+                            textAlign:
+                            TextAlign.center,
 
                             style: TextStyle(
                               fontSize: 21,
-                              fontWeight: FontWeight.bold,
+                              fontWeight:
+                              FontWeight.bold,
                             ),
                           ),
 
                           const SizedBox(height: 15),
 
                           ListTile(
-                            contentPadding: EdgeInsets.zero,
+                            contentPadding:
+                            EdgeInsets.zero,
 
-                            leading: const Icon(
-                              Icons.campaign,
-                              size: 35,
-                              color: Color(0xFFFF1493),
+                            leading: Container(
+                              padding:
+                              const EdgeInsets.all(
+                                8,
+                              ),
+
+                              decoration:
+                              BoxDecoration(
+                                color:
+                                const Color(
+                                  0xFFFF1493,
+                                ).withOpacity(0.1),
+
+                                shape:
+                                BoxShape.circle,
+                              ),
+
+                              child: const Icon(
+                                Icons.campaign,
+                                size: 30,
+                                color:
+                                Color(0xFFFF1493),
+                              ),
                             ),
 
                             title: const Text(
                               'Digital Marketing Bootcamp',
+
                               style: TextStyle(
-                                fontWeight: FontWeight.bold,
+                                fontWeight:
+                                FontWeight.bold,
                               ),
                             ),
 
@@ -167,18 +247,27 @@ class HomeScreen extends StatelessWidget {
                               '20 August 2026 • Online',
                             ),
 
-                            trailing: const Icon(
-                              Icons.arrow_forward_ios,
+                            trailing:
+                            const Icon(
+                              Icons
+                                  .arrow_forward_ios,
                               size: 18,
-                              color: Color(0xFFFF7A00),
+                              color:
+                              Color(0xFFFF7A00),
                             ),
 
                             onTap: () {
+
                               Navigator.push(
                                 context,
+
                                 MaterialPageRoute(
-                                  builder: (context) =>
-                                  const ProgramListingScreen(),
+                                  builder:
+                                      (context) =>
+                                      ProgramListingScreen(
+                                        userEmail:
+                                        userEmail,
+                                      ),
                                 ),
                               );
                             },
@@ -191,31 +280,48 @@ class HomeScreen extends StatelessWidget {
 
                 const SizedBox(height: 20),
 
+                // ==========================================
                 // ANNOUNCEMENTS
+                // ==========================================
+
                 SizedBox(
                   width: double.infinity,
 
                   child: Card(
+                    elevation: 3,
+
+                    shape:
+                    RoundedRectangleBorder(
+                      borderRadius:
+                      BorderRadius.circular(16),
+                    ),
+
                     child: Padding(
-                      padding: const EdgeInsets.all(20),
+                      padding:
+                      const EdgeInsets.all(20),
 
                       child: Column(
                         children: [
+
                           const Icon(
                             Icons.notifications_active,
                             size: 40,
-                            color: Color(0xFFFF1493),
+                            color:
+                            Color(0xFFFF1493),
                           ),
 
                           const SizedBox(height: 10),
 
                           const Text(
                             'Announcements',
-                            textAlign: TextAlign.center,
+
+                            textAlign:
+                            TextAlign.center,
 
                             style: TextStyle(
                               fontSize: 21,
-                              fontWeight: FontWeight.bold,
+                              fontWeight:
+                              FontWeight.bold,
                             ),
                           ),
 
@@ -224,11 +330,17 @@ class HomeScreen extends StatelessWidget {
                           Container(
                             width: double.infinity,
 
-                            padding: const EdgeInsets.all(15),
+                            padding:
+                            const EdgeInsets.all(
+                              15,
+                            ),
 
-                            decoration: BoxDecoration(
+                            decoration:
+                            BoxDecoration(
                               borderRadius:
-                              BorderRadius.circular(12),
+                              BorderRadius.circular(
+                                12,
+                              ),
 
                               gradient:
                               const LinearGradient(
@@ -241,13 +353,17 @@ class HomeScreen extends StatelessWidget {
 
                             child: const Column(
                               children: [
+
                                 Text(
                                   'New Workshop Available',
-                                  textAlign: TextAlign.center,
+
+                                  textAlign:
+                                  TextAlign.center,
 
                                   style: TextStyle(
                                     fontSize: 17,
-                                    fontWeight: FontWeight.bold,
+                                    fontWeight:
+                                    FontWeight.bold,
                                   ),
                                 ),
 
@@ -256,7 +372,9 @@ class HomeScreen extends StatelessWidget {
                                 Text(
                                   'Registration is now open for the '
                                       'upcoming workshop.',
-                                  textAlign: TextAlign.center,
+
+                                  textAlign:
+                                  TextAlign.center,
                                 ),
                               ],
                             ),
@@ -269,66 +387,103 @@ class HomeScreen extends StatelessWidget {
 
                 const SizedBox(height: 20),
 
+                // ==========================================
                 // QUICK LINKS
+                // ==========================================
+
                 SizedBox(
                   width: double.infinity,
 
                   child: Card(
+                    elevation: 3,
+
+                    shape:
+                    RoundedRectangleBorder(
+                      borderRadius:
+                      BorderRadius.circular(16),
+                    ),
+
                     child: Padding(
-                      padding: const EdgeInsets.all(20),
+                      padding:
+                      const EdgeInsets.all(20),
 
                       child: Column(
                         children: [
+
                           const Text(
                             'Quick Links',
-                            textAlign: TextAlign.center,
+
+                            textAlign:
+                            TextAlign.center,
 
                             style: TextStyle(
                               fontSize: 21,
-                              fontWeight: FontWeight.bold,
+                              fontWeight:
+                              FontWeight.bold,
                             ),
                           ),
 
                           const SizedBox(height: 20),
 
                           Wrap(
-                            alignment: WrapAlignment.center,
+                            alignment:
+                            WrapAlignment.center,
+
                             spacing: 30,
                             runSpacing: 20,
 
                             children: [
+
+                              // PROGRAMS
                               _quickLink(
                                 Icons.school,
                                 'Programs',
-                                const Color(0xFFFF7A00),
+                                const Color(
+                                  0xFFFF7A00,
+                                ),
 
                                 onTap: () {
+
                                   Navigator.push(
                                     context,
+
                                     MaterialPageRoute(
-                                      builder: (context) =>
-                                      const ProgramListingScreen(),
+                                      builder:
+                                          (context) =>
+                                          ProgramListingScreen(
+                                            userEmail:
+                                            userEmail,
+                                          ),
                                     ),
                                   );
                                 },
                               ),
 
+                              // EVENTS
                               _quickLink(
                                 Icons.event,
                                 'Events',
-                                const Color(0xFFFF1493),
+                                const Color(
+                                  0xFFFF1493,
+                                ),
                               ),
 
+                              // FEEDBACK
                               _quickLink(
                                 Icons.feedback,
                                 'Feedback',
-                                const Color(0xFFFF7A00),
+                                const Color(
+                                  0xFFFF7A00,
+                                ),
                               ),
 
+                              // PROFILE
                               _quickLink(
                                 Icons.person,
                                 'Profile',
-                                const Color(0xFFFF1493),
+                                const Color(
+                                  0xFFFF1493,
+                                ),
                               ),
                             ],
                           ),
@@ -347,6 +502,10 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
+  // ==========================================
+  // QUICK LINK WIDGET
+  // ==========================================
+
   Widget _quickLink(
       IconData icon,
       String label,
@@ -361,12 +520,17 @@ class HomeScreen extends StatelessWidget {
 
         child: Column(
           children: [
+
             Container(
-              padding: const EdgeInsets.all(12),
+              padding:
+              const EdgeInsets.all(12),
 
               decoration: BoxDecoration(
-                color: iconColor.withOpacity(0.1),
-                shape: BoxShape.circle,
+                color:
+                iconColor.withOpacity(0.1),
+
+                shape:
+                BoxShape.circle,
               ),
 
               child: Icon(
@@ -380,7 +544,8 @@ class HomeScreen extends StatelessWidget {
 
             Text(
               label,
-              textAlign: TextAlign.center,
+              textAlign:
+              TextAlign.center,
             ),
           ],
         ),

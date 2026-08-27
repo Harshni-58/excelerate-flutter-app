@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'home_screen.dart';
+import 'signup_page.dart';
+import '../services/auth_service.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -36,17 +38,14 @@ class _LoginScreenState extends State<LoginScreen> {
             ],
           ),
         ),
-
         child: SafeArea(
           child: SingleChildScrollView(
             padding: const EdgeInsets.all(20),
-
             child: Center(
               child: ConstrainedBox(
                 constraints: const BoxConstraints(
                   maxWidth: 500,
                 ),
-
                 child: Column(
                   children: [
                     const SizedBox(height: 40),
@@ -103,10 +102,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(22),
                       ),
-
                       child: Padding(
                         padding: const EdgeInsets.all(25),
-
                         child: Column(
                           children: [
                             const Text(
@@ -136,7 +133,6 @@ class _LoginScreenState extends State<LoginScreen> {
                               controller: emailController,
                               keyboardType:
                               TextInputType.emailAddress,
-
                               decoration: InputDecoration(
                                 labelText: 'Email',
                                 hintText: 'Enter your email',
@@ -144,9 +140,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   Icons.email,
                                   color: Color(0xFFFF7A00),
                                 ),
-
-                                focusedBorder:
-                                OutlineInputBorder(
+                                focusedBorder: OutlineInputBorder(
                                   borderRadius:
                                   BorderRadius.circular(12),
                                   borderSide: const BorderSide(
@@ -154,7 +148,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                     width: 2,
                                   ),
                                 ),
-
                                 border: OutlineInputBorder(
                                   borderRadius:
                                   BorderRadius.circular(12),
@@ -168,7 +161,6 @@ class _LoginScreenState extends State<LoginScreen> {
                             TextField(
                               controller: passwordController,
                               obscureText: true,
-
                               decoration: InputDecoration(
                                 labelText: 'Password',
                                 hintText: 'Enter your password',
@@ -176,9 +168,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   Icons.lock,
                                   color: Color(0xFFFF1493),
                                 ),
-
-                                focusedBorder:
-                                OutlineInputBorder(
+                                focusedBorder: OutlineInputBorder(
                                   borderRadius:
                                   BorderRadius.circular(12),
                                   borderSide: const BorderSide(
@@ -186,7 +176,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                     width: 2,
                                   ),
                                 ),
-
                                 border: OutlineInputBorder(
                                   borderRadius:
                                   BorderRadius.circular(12),
@@ -200,32 +189,62 @@ class _LoginScreenState extends State<LoginScreen> {
                             SizedBox(
                               width: double.infinity,
                               height: 52,
-
                               child: DecoratedBox(
                                 decoration: BoxDecoration(
-                                  gradient:
-                                  const LinearGradient(
+                                  gradient: const LinearGradient(
                                     colors: [
                                       Color(0xFFFF7A00),
                                       Color(0xFFFF1493),
                                     ],
                                   ),
-
                                   borderRadius:
                                   BorderRadius.circular(12),
                                 ),
-
                                 child: ElevatedButton(
-                                  onPressed: () {
-                                    Navigator.pushReplacement(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) =>
-                                        const HomeScreen(),
-                                      ),
-                                    );
-                                  },
+                                  onPressed: () async {
+                                    final email = emailController.text.trim();
+                                    final password = passwordController.text;
 
+                                    // Check for empty fields
+                                    if (email.isEmpty || password.isEmpty) {
+                                      ScaffoldMessenger.of(context).showSnackBar(
+                                        const SnackBar(
+                                          content: Text('Please enter your email and password.'),
+                                          backgroundColor: Colors.red,
+                                        ),
+                                      );
+                                      return;
+                                    }
+
+                                    // Check login credentials
+                                    final isValid = await AuthService.loginUser(
+                                      email: email,
+                                      password: password,
+                                    );
+
+                                    if (!mounted) return;
+
+                                    if (isValid) {
+                                      // Login successful
+                                      Navigator.pushReplacement(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => HomeScreen(
+                                            userEmail: email,
+                                          ),
+                                        ),
+                                      );
+                                    }
+                                     else {
+                                      // Login failed
+                                      ScaffoldMessenger.of(context).showSnackBar(
+                                        const SnackBar(
+                                          content: Text('Incorrect email or password.'),
+                                          backgroundColor: Colors.red,
+                                        ),
+                                      );
+                                    }
+                                  },
                                   style:
                                   ElevatedButton.styleFrom(
                                     backgroundColor:
@@ -233,7 +252,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                     shadowColor:
                                     Colors.transparent,
                                   ),
-
                                   child: const Text(
                                     'LOGIN',
                                     style: TextStyle(
@@ -248,6 +266,43 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
 
                             const SizedBox(height: 20),
+
+                            // SIGN UP SECTION
+                            Row(
+                              mainAxisAlignment:
+                              MainAxisAlignment.center,
+                              children: [
+                                const Text(
+                                  "Don't have an account?",
+                                  style: TextStyle(
+                                    color: Colors.grey,
+                                    fontSize: 14,
+                                  ),
+                                ),
+
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                        const SignupPage(),
+                                      ),
+                                    );
+                                  },
+                                  child: const Text(
+                                    'Sign Up',
+                                    style: TextStyle(
+                                      color: Color(0xFFFF1493),
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 14,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+
+                            const SizedBox(height: 5),
 
                             const Text(
                               'Excelerate • Learn • Grow • Succeed',

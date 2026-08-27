@@ -1,30 +1,35 @@
 import 'package:flutter/material.dart';
+
+import 'registration_screen.dart';
+import '../models/program.dart';
 import '../widgets/app_drawer.dart';
 
 class ProgramDetailsScreen extends StatelessWidget {
-  final Map<String, String> program;
-
   const ProgramDetailsScreen({
     super.key,
     required this.program,
+    required this.userEmail,
   });
+
+  final Program program;
+  final String userEmail;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: const AppDrawer(),
+      drawer: AppDrawer(
+        userEmail: userEmail,
+      ),
 
       appBar: AppBar(
         title: const Text(
           'PROGRAM DETAILS',
           style: TextStyle(
             fontWeight: FontWeight.bold,
-            letterSpacing: 1.2,
+            letterSpacing: 1.5,
           ),
         ),
-
         centerTitle: true,
-
         flexibleSpace: Container(
           decoration: const BoxDecoration(
             gradient: LinearGradient(
@@ -38,7 +43,7 @@ class ProgramDetailsScreen extends StatelessWidget {
       ),
 
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(20),
+        padding: const EdgeInsets.all(16),
 
         child: Center(
           child: ConstrainedBox(
@@ -47,13 +52,19 @@ class ProgramDetailsScreen extends StatelessWidget {
             ),
 
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
 
+                // ==========================================
                 // PROGRAM HEADER
+                // ==========================================
+
                 SizedBox(
                   width: double.infinity,
 
                   child: Container(
+                    padding: const EdgeInsets.all(24),
+
                     decoration: BoxDecoration(
                       gradient: const LinearGradient(
                         begin: Alignment.topLeft,
@@ -65,184 +76,215 @@ class ProgramDetailsScreen extends StatelessWidget {
                       ),
 
                       borderRadius: BorderRadius.circular(18),
+
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.12),
+                          blurRadius: 10,
+                          offset: const Offset(0, 5),
+                        ),
+                      ],
                     ),
 
-                    child: Padding(
-                      padding: const EdgeInsets.all(25),
+                    child: Column(
+                      children: [
 
-                      child: Column(
-                        children: [
-                          Container(
-                            padding: const EdgeInsets.all(15),
+                        Container(
+                          padding: const EdgeInsets.all(14),
 
-                            decoration: BoxDecoration(
-                              color:
-                              Colors.white.withOpacity(0.2),
-                              shape: BoxShape.circle,
-                            ),
+                          decoration: BoxDecoration(
+                            color: Colors.white.withOpacity(0.2),
+                            shape: BoxShape.circle,
+                          ),
 
-                            child: const Icon(
-                              Icons.school,
-                              size: 50,
+                          child: const Icon(
+                            Icons.school,
+                            color: Colors.white,
+                            size: 45,
+                          ),
+                        ),
+
+                        const SizedBox(height: 16),
+
+                        Text(
+                          program.title,
+                          textAlign: TextAlign.center,
+
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 26,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+
+                        const SizedBox(height: 10),
+
+                        Row(
+                          mainAxisAlignment:
+                          MainAxisAlignment.center,
+
+                          children: [
+                            const Icon(
+                              Icons.calendar_today,
                               color: Colors.white,
-                            ),
-                          ),
-
-                          const SizedBox(height: 15),
-
-                          Text(
-                            program['title']!,
-                            textAlign: TextAlign.center,
-
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 27,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-
-                          const SizedBox(height: 15),
-
-                          Container(
-                            padding:
-                            const EdgeInsets.symmetric(
-                              horizontal: 14,
-                              vertical: 8,
+                              size: 18,
                             ),
 
-                            decoration: BoxDecoration(
-                              color:
-                              Colors.white.withOpacity(0.2),
-                              borderRadius:
-                              BorderRadius.circular(20),
+                            const SizedBox(width: 8),
+
+                            Text(
+                              program.startDate,
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 15,
+                                fontWeight: FontWeight.w500,
+                              ),
                             ),
-
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-
-                              children: [
-                                const Icon(
-                                  Icons.calendar_today,
-                                  size: 18,
-                                  color: Colors.white,
-                                ),
-
-                                const SizedBox(width: 8),
-
-                                Text(
-                                  program['date']!,
-
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
+                          ],
+                        ),
+                      ],
                     ),
                   ),
                 ),
 
                 const SizedBox(height: 20),
 
+                // ==========================================
+                // ABOUT THE PROGRAM
+                // ==========================================
+
                 _buildInfoCard(
-                  title: 'About the Program',
                   icon: Icons.info_outline,
-                  iconColor:
-                  const Color(0xFFFF7A00),
+                  title: 'About the Program',
 
                   child: Text(
-                    program['description']!,
-                    textAlign: TextAlign.center,
+                    program.description,
 
                     style: const TextStyle(
-                      fontSize: 16,
-                      height: 1.5,
-                    ),
-                  ),
-                ),
-
-                const SizedBox(height: 20),
-
-                _buildInfoCard(
-                  title: 'Schedule',
-                  icon: Icons.schedule,
-                  iconColor:
-                  const Color(0xFFFF1493),
-
-                  child: Text(
-                    program['schedule']!,
-                    textAlign: TextAlign.center,
-
-                    style: const TextStyle(
-                      fontSize: 16,
-                      height: 1.5,
-                    ),
-                  ),
-                ),
-
-                const SizedBox(height: 20),
-
-                _buildInfoCard(
-                  title: 'Eligibility',
-                  icon: Icons.people,
-                  iconColor:
-                  const Color(0xFFFF7A00),
-
-                  child: Text(
-                    program['eligibility']!,
-                    textAlign: TextAlign.center,
-
-                    style: const TextStyle(
-                      fontSize: 16,
-                      height: 1.5,
-                    ),
-                  ),
-                ),
-
-                const SizedBox(height: 20),
-
-                _buildInfoCard(
-                  title: 'Trainers',
-                  icon: Icons.person,
-                  iconColor:
-                  const Color(0xFFFF1493),
-
-                  child: Text(
-                    program['trainers']!,
-                    textAlign: TextAlign.center,
-
-                    style: const TextStyle(
-                      fontSize: 16,
-                      height: 1.5,
-                    ),
-                  ),
-                ),
-
-                const SizedBox(height: 20),
-
-                _buildInfoCard(
-                  title: 'Expected Outcomes',
-                  icon: Icons.emoji_events,
-                  iconColor:
-                  const Color(0xFFFF7A00),
-
-                  child: Text(
-                    program['outcomes']!,
-                    textAlign: TextAlign.center,
-
-                    style: const TextStyle(
-                      fontSize: 16,
+                      fontSize: 15,
                       height: 1.6,
                     ),
                   ),
                 ),
 
-                const SizedBox(height: 25),
+                const SizedBox(height: 14),
+
+                // ==========================================
+                // SCHEDULE
+                // ==========================================
+
+                _buildInfoCard(
+                  icon: Icons.schedule,
+                  title: 'Schedule',
+
+                  child: Text(
+                    program.schedule,
+
+                    style: const TextStyle(
+                      fontSize: 15,
+                      height: 1.5,
+                    ),
+                  ),
+                ),
+
+                const SizedBox(height: 14),
+
+                // ==========================================
+                // ELIGIBILITY
+                // ==========================================
+
+                _buildInfoCard(
+                  icon: Icons.people_outline,
+                  title: 'Eligibility',
+
+                  child: Text(
+                    program.eligibility,
+
+                    style: const TextStyle(
+                      fontSize: 15,
+                      height: 1.5,
+                    ),
+                  ),
+                ),
+
+                const SizedBox(height: 14),
+
+                // ==========================================
+                // TRAINERS
+                // ==========================================
+
+                _buildInfoCard(
+                  icon: Icons.person_outline,
+                  title: 'Trainers',
+
+                  child: Text(
+                    program.trainers,
+
+                    style: const TextStyle(
+                      fontSize: 15,
+                      height: 1.5,
+                    ),
+                  ),
+                ),
+
+                const SizedBox(height: 14),
+
+                // ==========================================
+                // EXPECTED OUTCOMES
+                // ==========================================
+
+                _buildInfoCard(
+                  icon: Icons.check_circle_outline,
+                  title: 'Expected Outcomes',
+
+                  child: Column(
+                    crossAxisAlignment:
+                    CrossAxisAlignment.start,
+
+                    children: program.outcomes.map(
+                          (outcome) {
+                        return Padding(
+                          padding: const EdgeInsets.only(
+                            bottom: 10,
+                          ),
+
+                          child: Row(
+                            crossAxisAlignment:
+                            CrossAxisAlignment.start,
+
+                            children: [
+
+                              const Icon(
+                                Icons.check_circle,
+                                color: Color(0xFFFF1493),
+                                size: 20,
+                              ),
+
+                              const SizedBox(width: 10),
+
+                              Expanded(
+                                child: Text(
+                                  outcome,
+
+                                  style: const TextStyle(
+                                    fontSize: 15,
+                                    height: 1.4,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        );
+                      },
+                    ).toList(),
+                  ),
+                ),
+
+                const SizedBox(height: 24),
+
+                // ==========================================
+                // REGISTER BUTTON
+                // ==========================================
 
                 SizedBox(
                   width: double.infinity,
@@ -250,8 +292,7 @@ class ProgramDetailsScreen extends StatelessWidget {
 
                   child: DecoratedBox(
                     decoration: BoxDecoration(
-                      gradient:
-                      const LinearGradient(
+                      gradient: const LinearGradient(
                         colors: [
                           Color(0xFFFF7A00),
                           Color(0xFFFF1493),
@@ -260,42 +301,58 @@ class ProgramDetailsScreen extends StatelessWidget {
 
                       borderRadius:
                       BorderRadius.circular(12),
+
+                      boxShadow: [
+                        BoxShadow(
+                          color: const Color(0xFFFF1493)
+                              .withOpacity(0.25),
+
+                          blurRadius: 8,
+                          offset: const Offset(0, 4),
+                        ),
+                      ],
                     ),
 
-                    child: ElevatedButton.icon(
+                    child: ElevatedButton(
                       onPressed: () {
-                        ScaffoldMessenger.of(context)
-                            .showSnackBar(
-                          const SnackBar(
-                            content: Text(
-                              'Registration feature coming soon!',
-                            ),
+
+                        Navigator.push(
+                          context,
+
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                RegistrationScreen(
+                                  program: program,
+                                  userEmail: userEmail,
+                                ),
                           ),
                         );
                       },
 
-                      icon: const Icon(
-                        Icons.app_registration,
-                        color: Colors.white,
-                      ),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor:
+                        Colors.transparent,
 
-                      label: const Text(
-                        'REGISTER NOW',
+                        shadowColor:
+                        Colors.transparent,
 
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          letterSpacing: 0.8,
+                        foregroundColor:
+                        Colors.white,
+
+                        shape: RoundedRectangleBorder(
+                          borderRadius:
+                          BorderRadius.circular(12),
                         ),
                       ),
 
-                      style:
-                      ElevatedButton.styleFrom(
-                        backgroundColor:
-                        Colors.transparent,
-                        shadowColor:
-                        Colors.transparent,
+                      child: const Text(
+                        'REGISTER NOW',
+
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          letterSpacing: 0.5,
+                        ),
                       ),
                     ),
                   ),
@@ -310,47 +367,73 @@ class ProgramDetailsScreen extends StatelessWidget {
     );
   }
 
+  // ================================================
+  // REUSABLE INFORMATION CARD
+  // ================================================
+
   Widget _buildInfoCard({
-    required String title,
     required IconData icon,
-    required Color iconColor,
+    required String title,
     required Widget child,
   }) {
     return SizedBox(
       width: double.infinity,
 
       child: Card(
+        elevation: 3,
+
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16),
+        ),
+
         child: Padding(
-          padding: const EdgeInsets.all(20),
+          padding: const EdgeInsets.all(18),
 
           child: Column(
+            crossAxisAlignment:
+            CrossAxisAlignment.start,
+
             children: [
-              Container(
-                padding: const EdgeInsets.all(10),
 
-                decoration: BoxDecoration(
-                  color:
-                  iconColor.withOpacity(0.1),
-                  shape: BoxShape.circle,
-                ),
+              Row(
+                children: [
 
-                child: Icon(
-                  icon,
-                  size: 30,
-                  color: iconColor,
-                ),
-              ),
+                  Container(
+                    padding:
+                    const EdgeInsets.all(8),
 
-              const SizedBox(height: 10),
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFFF1493)
+                          .withOpacity(0.1),
 
-              Text(
-                title,
-                textAlign: TextAlign.center,
+                      borderRadius:
+                      BorderRadius.circular(10),
+                    ),
 
-                style: const TextStyle(
-                  fontSize: 21,
-                  fontWeight: FontWeight.bold,
-                ),
+                    child: Icon(
+                      icon,
+
+                      color:
+                      const Color(0xFFFF1493),
+
+                      size: 24,
+                    ),
+                  ),
+
+                  const SizedBox(width: 10),
+
+                  Expanded(
+                    child: Text(
+                      title,
+
+                      style: const TextStyle(
+                        fontSize: 18,
+                        fontWeight:
+                        FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ],
               ),
 
               const SizedBox(height: 12),

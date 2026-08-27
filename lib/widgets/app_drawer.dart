@@ -1,17 +1,27 @@
 import 'package:flutter/material.dart';
+
 import '../screens/home_screen.dart';
 import '../screens/program_listing_screen.dart';
 import '../screens/login_screen.dart';
+import '../screens/my_registration_screen.dart';
 
 class AppDrawer extends StatelessWidget {
-  const AppDrawer({super.key});
+  const AppDrawer({
+    super.key,
+    required this.userEmail,
+  });
+
+  final String userEmail;
 
   @override
   Widget build(BuildContext context) {
     return Drawer(
       child: Column(
         children: [
+          // ==========================================
           // DRAWER HEADER
+          // ==========================================
+
           DrawerHeader(
             decoration: const BoxDecoration(
               gradient: LinearGradient(
@@ -23,21 +33,17 @@ class AppDrawer extends StatelessWidget {
                 ],
               ),
             ),
-
             child: SizedBox(
               width: double.infinity,
-
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Container(
                     padding: const EdgeInsets.all(10),
-
                     decoration: BoxDecoration(
                       color: Colors.white.withOpacity(0.2),
                       shape: BoxShape.circle,
                     ),
-
                     child: const Icon(
                       Icons.school,
                       color: Colors.white,
@@ -69,37 +75,65 @@ class AppDrawer extends StatelessWidget {
             ),
           ),
 
+          // ==========================================
           // HOME
+          // ==========================================
+
           ListTile(
             leading: const Icon(
               Icons.home,
               color: Color(0xFFFF7A00),
             ),
-
             title: const Text('Home'),
-
             onTap: () {
               Navigator.pop(context);
 
               Navigator.pushAndRemoveUntil(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => const HomeScreen(),
+                  builder: (context) => HomeScreen(
+                    userEmail: userEmail,
+                  ),
                 ),
                     (route) => false,
               );
             },
           ),
 
+          // ==========================================
           // PROGRAMS
+          // ==========================================
+
           ListTile(
             leading: const Icon(
               Icons.school,
               color: Color(0xFFFF1493),
             ),
-
             title: const Text('Programs'),
+            onTap: () {
+              Navigator.pop(context);
 
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ProgramListingScreen(
+                    userEmail: userEmail,
+                  ),
+                ),
+              );
+            },
+          ),
+
+          // ==========================================
+          // MY REGISTRATIONS
+          // ==========================================
+
+          ListTile(
+            leading: const Icon(
+              Icons.assignment_turned_in,
+              color: Color(0xFFFF7A00),
+            ),
+            title: const Text('My Registrations'),
             onTap: () {
               Navigator.pop(context);
 
@@ -107,21 +141,24 @@ class AppDrawer extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                   builder: (context) =>
-                  const ProgramListingScreen(),
+                      MyRegistrationsScreen(
+                        userEmail: userEmail,
+                      ),
                 ),
               );
             },
           ),
 
+          // ==========================================
           // EVENTS
+          // ==========================================
+
           ListTile(
             leading: const Icon(
               Icons.event,
               color: Color(0xFFFF7A00),
             ),
-
             title: const Text('Events'),
-
             onTap: () {
               Navigator.pop(context);
 
@@ -135,15 +172,16 @@ class AppDrawer extends StatelessWidget {
             },
           ),
 
+          // ==========================================
           // ANNOUNCEMENTS
+          // ==========================================
+
           ListTile(
             leading: const Icon(
               Icons.notifications,
               color: Color(0xFFFF1493),
             ),
-
             title: const Text('Announcements'),
-
             onTap: () {
               Navigator.pop(context);
 
@@ -157,15 +195,16 @@ class AppDrawer extends StatelessWidget {
             },
           ),
 
+          // ==========================================
           // FEEDBACK
+          // ==========================================
+
           ListTile(
             leading: const Icon(
               Icons.feedback,
               color: Color(0xFFFF7A00),
             ),
-
             title: const Text('Feedback'),
-
             onTap: () {
               Navigator.pop(context);
 
@@ -183,40 +222,37 @@ class AppDrawer extends StatelessWidget {
 
           const Spacer(),
 
+          // ==========================================
           // LOGOUT
+          // ==========================================
+
           ListTile(
             leading: const Icon(
               Icons.logout,
               color: Color(0xFFFF1493),
             ),
-
             title: const Text(
               'Logout',
               style: TextStyle(
                 fontWeight: FontWeight.bold,
               ),
             ),
-
             onTap: () {
               Navigator.pop(context);
 
               showDialog(
                 context: context,
-
                 builder: (context) {
                   return AlertDialog(
                     title: const Text('Logout'),
-
                     content: const Text(
                       'Are you sure you want to logout?',
                     ),
-
                     actions: [
                       TextButton(
                         onPressed: () {
                           Navigator.pop(context);
                         },
-
                         child: const Text('CANCEL'),
                       ),
 
@@ -233,7 +269,6 @@ class AppDrawer extends StatelessWidget {
                                 (route) => false,
                           );
                         },
-
                         child: const Text('LOGOUT'),
                       ),
                     ],
